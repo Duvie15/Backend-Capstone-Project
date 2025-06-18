@@ -8,9 +8,9 @@ const connectToDatabase = require('./models/db');
 const {loadData} = require("./util/import-mongo/index");
 const secondChanceItemsRoutes = require('./routes/secondChanceItemsRoutes');
 
-
 const app = express();
 app.use("*",cors());
+app.use(express.json());
 app.use('/api/secondchance/items', secondChanceItemsRoutes);
 const port = 3060;
 
@@ -19,9 +19,6 @@ connectToDatabase().then(() => {
     pinoLogger.info('Connected to DB');
 })
     .catch((e) => console.error('Failed to connect to DB', e));
-
-
-app.use(express.json());
 
 // Route files
 
@@ -33,7 +30,6 @@ const searchRoutes = require('./routes/searchRoutes');
 
 // Search API Task 1: import the searchRoutes and store in a constant called searchRoutes
 //{{insert code here}}
-
 
 const pinoHttp = require('pino-http');
 const logger = require('./logger');
@@ -49,7 +45,6 @@ app.use('/api/secondchance/search', searchRoutes);
 
 // Search API Task 2: add the searchRoutes to the server by using the app.use() method.
 //{{insert code here}}
-
 
 // Global Error Handler
 app.use((err, req, res, next) => {

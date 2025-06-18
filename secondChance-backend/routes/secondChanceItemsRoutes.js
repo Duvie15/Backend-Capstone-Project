@@ -21,7 +21,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
 // Get all secondChanceItems
 router.get('/', async (req, res, next) => {
     logger.info('/ called');
@@ -51,9 +50,8 @@ router.post('/', upload.single('file'), async(req, res,next) => {
         //Step 3: task 5 - insert code here
         const db = await connectToDatabase();
         const collection = db.collection("secondChanceItems");
-        const lastItemQuery = await collection.find().sort({'id': -1}).limit(1);
         let secondChanceItem = req.body;
-
+        const lastItemQuery = await collection.find().sort({'id': -1}).limit(1);
         await lastItemQuery.forEach(item => {
             secondChanceItem.id = (parseInt(item.id) + 1).toString();
         });
@@ -63,7 +61,7 @@ router.post('/', upload.single('file'), async(req, res,next) => {
         secondChanceItem = await collection.insertOne(secondChanceItem);
         console.log(secondChanceItem);
 
-        res.status(201).json(secondChanceItem.ops[0]);
+        res.status(201).json(secondChanceItem);
     } catch (e) {
         next(e);
     }
