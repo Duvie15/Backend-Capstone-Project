@@ -47,9 +47,9 @@ router.post('/', upload.single('file'), async (req, res, next) => {
     // Step 3: task 4 - insert code here
     // Step 3: task 5 - insert code here
     const db = await connectToDatabase()
-    const collection = db.collection("secondChanceItems")
+    const collection = db.collection('secondChanceItems')
     let secondChanceItem = req.body
-    const lastItemQuery = await collection.find().sort({'id': -1}).limit(1)
+    const lastItemQuery = await collection.find().sort({id: -1}).limit(1)
     await lastItemQuery.forEach(item => {
       secondChanceItem.id = (parseInt(item.id) + 1).toString()
     })
@@ -73,12 +73,12 @@ router.get('/:id', async (req, res, next) => {
     // Step 4: task 3 - insert code here
     // Step 4: task 4 - insert code here
     const db = await connectToDatabase()
-    const collection = db.collection("secondChanceItems")
+    const collection = db.collection('secondChanceItems')
     const id = req.params.id
     const secondChanceItem = await collection.findOne({ id: id })
 
     if (!secondChanceItem) {
-      return res.status(404).send("secondChanceItem not found")
+      return res.status(404).send('secondChanceItem not found')
     }
 
     res.json(secondChanceItem)
@@ -96,7 +96,7 @@ router.put('/:id', async (req, res, next) => {
     // Step 5: task 4 - insert code here
     // Step 5: task 5 - insert code here
     const db = await connectToDatabase()
-    const collection = db.collection("secondChanceItems")
+    const collection = db.collection('secondChanceItems')
     const id = req.params.id
     const secondChanceItem = await collection.findOne({ id })
 
@@ -119,9 +119,9 @@ router.put('/:id', async (req, res, next) => {
     )
 
     if(updatepreloveItem) {
-      res.json({"uploaded":"success"})
+      res.json({uploaded:"success"})
     } else {
-      res.json({"uploaded":"failed"})
+      res.json({uploaded:"failed"})
     }
 
   } catch (e) {
@@ -137,7 +137,7 @@ router.delete('/:id', async (req, res, next) => {
     // Step 6: task 3 - insert code here
     // Step 6: task 4 - insert code here
     const db = await connectToDatabase()
-    const collection = db.collection("secondChanceItems")
+    const collection = db.collection('secondChanceItems')
     const id = req.params.id
     const secondChanceItem = await collection.findOne({ id })
 
@@ -147,7 +147,7 @@ router.delete('/:id', async (req, res, next) => {
     }
     const updatepreloveItem = await collection.deleteOne({ id })
 
-    res.json({"deleted":"success"})
+    res.json({deleted:"success"})
 
   } catch (e) {
     next(e)
