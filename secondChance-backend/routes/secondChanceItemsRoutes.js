@@ -40,7 +40,6 @@ router.get('/', async (req, res, next) => {
 // Add a new item
 router.post('/', upload.single('file'), async (req, res, next) => {
   try {
-
     // Step 3: task 1 - insert code here
     // Step 3: task 2 - insert code here
     // Step 3: task 3 - insert code here
@@ -123,7 +122,6 @@ router.put('/:id', async (req, res, next) => {
     } else {
       res.json({uploaded:"failed"})
     }
-
   } catch (e) {
     next(e)
   }
@@ -148,7 +146,6 @@ router.delete('/:id', async (req, res, next) => {
     const updatepreloveItem = await collection.deleteOne({ id })
 
     res.json({deleted:"success"})
-
   } catch (e) {
     next(e)
   }
