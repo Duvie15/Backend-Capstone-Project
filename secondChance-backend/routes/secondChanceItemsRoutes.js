@@ -101,14 +101,14 @@ router.put('/:id', async (req, res, next) => {
 
     if (!secondChanceItem) {
       logger.error('secondChanceItem not found')
-      return res.status(404).json({ error: "secondChanceItem not found" })
+      return res.status(404).json({ error: 'secondChanceItem not found' })
     }
 
     secondChanceItem.category = req.body.category
     secondChanceItem.condition = req.body.condition
     secondChanceItem.age_days = req.body.age_days
     secondChanceItem.description = req.body.description
-    secondChanceItem.age_years = Number((secondChanceItem.age_days/365).toFixed(1))
+    secondChanceItem.age_years = Number((secondChanceItem.age_days / 365).toFixed(1))
     secondChanceItem.updatedAt = new Date()
 
     const updatepreloveItem = await collection.findOneAndUpdate(
@@ -117,7 +117,7 @@ router.put('/:id', async (req, res, next) => {
       { returnDocument: 'after' }
     )
 
-    if(updatepreloveItem) {
+    if (updatepreloveItem) {
       res.json({ uploaded: 'success' })
     } else {
       res.json({ uploaded: 'failed' })
@@ -143,7 +143,7 @@ router.delete('/:id', async (req, res, next) => {
       logger.error('secondChanceItem not found')
       return res.status(404).json({ error: 'secondChanceItem not found' })
     }
-    const updatepreloveItem = await collection.deleteOne({ id })
+    await collection.deleteOne({ id })
 
     res.json({ deleted: 'success' })
   } catch (e) {
